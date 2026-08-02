@@ -1,0 +1,9 @@
+{
+  "schema_version": "asw.agent_stream_request.v1",
+  "agent_subscriber_id": "user:local",
+  "subscription_ids": [
+    "sub_agent_vs"
+  ],
+  "after": null,
+  "limit": 100
+}

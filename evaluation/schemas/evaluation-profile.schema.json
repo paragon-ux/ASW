@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:eval:profile:v1",
+  "title": "ASW evaluation profile",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.evaluation_profile.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+    "base_commit": {
+      "type": "string",
+      "minLength": 7,
+      "maxLength": 64
+    },
+    "frozen_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "primary_scenarios": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "job_completion",
+          "file_artifact_transition",
+          "ui_transition"
+        ]
+      }
+    },
+    "secondary_scenarios": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "render_export",
+          "process_crash_restart"
+        ]
+      }
+    },
+    "baselines": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "polling",
+          "filesystem_watch",
+          "ordinary_notification",
+          "repeated_observation",
+          "asw"
+        ]
+      }
+    },
+    "layer_a_repetitions_primary": {
+      "const": 20
+    },
+    "layer_a_repetitions_secondary": {
+      "const": 10
+    },
+    "layer_b_repetitions": {
+      "const": 3
+    },
+    "poll_interval_ms": {
+      "type": "integer",
+      "minimum": 50,
+      "maximum": 5000
+    },
+    "scenario_deadline_ms": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 120000
+    },
+    "random_delay_ms": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "type": "integer",
+          "minimum": 100
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 101
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ]
+    },
+    "ordinary_notification_template": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configuration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prompt_template": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "tool_configuration": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "operations": {
+              "type": "array",
+              "const": [
+                "observe",
+                "continue"
+              ]
+            },
+            "max_observation_calls": {
+              "const": 2
+            },
+            "max_continue_calls": {
+              "const": 1
+            }
+          },
+          "required": [
+            "operations",
+            "max_observation_calls",
+            "max_continue_calls"
+          ]
+        },
+        "max_tool_calls": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "max_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      },
+      "required": [
+          "model",
+          "configuration",
+          "implementation",
+          "prompt_template",
+          "tool_configuration",
+          "max_tool_calls",
+          "max_tokens"
+      ]
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "layer_a": {
+          "type": "array",
+          "const": [
+            "detected",
+            "detection_latency_ms",
+            "observation_count",
+            "missed",
+            "duplicate_count",
+            "false_positive_count",
+            "application_attribution_correct",
+            "kind_correct",
+            "subject_correct",
+            "localization_correct",
+            "continuation_ready"
+          ]
+        },
+        "layer_b": {
+          "type": "array",
+          "const": [
+            "continuation_success",
+            "agent_tool_calls",
+            "agent_observation_calls",
+            "continuation_latency_ms",
+            "incorrect_action_count",
+            "input_tokens",
+            "output_tokens"
+          ]
+        }
+      },
+      "required": [
+        "layer_a",
+        "layer_b"
+      ]
+    },
+    "selection_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ordered_keys": {
+          "const": [
+            "highest_detection_success",
+            "lowest_miss_rate",
+            "lowest_median_observation_count",
+            "lowest_median_detection_latency_ms",
+            "lexical_condition_id"
+          ]
+        }
+      },
+      "required": [
+        "ordered_keys"
+      ]
+    },
+    "thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "detection_success_min": {
+          "const": 0.98
+        },
+        "duplicate_rate_max": {
+          "const": 0.02
+        },
+        "false_positive_rate_max": {
+          "const": 0.02
+        },
+        "attribution_accuracy_min": {
+          "const": 0.98
+        },
+        "kind_accuracy_min": {
+          "const": 0.98
+        },
+        "layer_a_observation_reduction_min": {
+          "const": 0.3
+        },
+        "layer_a_required_primary_classes": {
+          "const": 2
+        },
+        "layer_a_detection_noninferiority_pp": {
+          "const": 0.02
+        },
+        "layer_b_success_noninferiority_pp": {
+          "const": 0.05
+        },
+        "layer_b_efficiency_improvement_min": {
+          "const": 0.2
+        }
+      },
+      "required": [
+        "detection_success_min",
+        "duplicate_rate_max",
+        "false_positive_rate_max",
+        "attribution_accuracy_min",
+        "kind_accuracy_min",
+        "layer_a_observation_reduction_min",
+        "layer_a_required_primary_classes",
+        "layer_a_detection_noninferiority_pp",
+        "layer_b_success_noninferiority_pp",
+        "layer_b_efficiency_improvement_min"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "base_commit",
+    "frozen_at",
+    "seed",
+    "primary_scenarios",
+    "secondary_scenarios",
+    "baselines",
+    "layer_a_repetitions_primary",
+    "layer_a_repetitions_secondary",
+    "layer_b_repetitions",
+    "poll_interval_ms",
+    "scenario_deadline_ms",
+    "random_delay_ms",
+    "ordinary_notification_template",
+    "agent",
+    "metrics",
+    "selection_rule",
+    "thresholds"
+  ]
+}

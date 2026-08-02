@@ -1,0 +1,10 @@
+{
+  "schema_version": "asw.evaluation_schema_index.v1",
+  "schemas": [
+    "evaluation-profile.schema.json",
+    "scenario.schema.json",
+    "trial-result.schema.json",
+    "run-manifest.schema.json",
+    "summary.schema.json"
+  ]
+}

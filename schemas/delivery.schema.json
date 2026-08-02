@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:delivery:v1",
+  "title": "ASW delivery record",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.delivery.v1"
+    },
+    "delivery_id": {
+      "type": "string",
+      "pattern": "^delivery_[A-Za-z0-9._-]+$"
+    },
+    "signal_id": {
+      "type": "string",
+      "pattern": "^sig_[A-Za-z0-9._-]+$"
+    },
+    "subscription_id": {
+      "type": "string",
+      "pattern": "^sub_[A-Za-z0-9._-]+$"
+    },
+    "subscriber_id": {
+      "type": "string",
+      "pattern": "^(user|agent):[A-Za-z0-9._-]+$"
+    },
+    "destination": {
+      "enum": [
+        "activity_center",
+        "windows_app_sdk",
+        "agent_stream"
+      ]
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "delivered",
+        "failed",
+        "skipped"
+      ]
+    },
+    "attempted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "error_code": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256
+    },
+    "error_summary": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 2048
+    },
+    "frontier": {
+      "$ref": "urn:asw:schema:frontier:v1"
+    }
+  },
+  "required": [
+    "schema_version",
+    "delivery_id",
+    "signal_id",
+    "subscription_id",
+    "subscriber_id",
+    "destination",
+    "status",
+    "attempted_at",
+    "completed_at",
+    "error_code",
+    "error_summary",
+    "frontier"
+  ]
+}

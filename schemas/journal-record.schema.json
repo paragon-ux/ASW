@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:journal-record:v1",
+  "title": "ASW authoritative journal record",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.journal_record.v1"
+    },
+    "journal_sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "record_kind": {
+      "enum": [
+        "application",
+        "observation_authorization",
+        "source_registration",
+        "event",
+        "subscriber",
+        "agent_access",
+        "subscription",
+        "delivery",
+        "policy_change",
+        "source_health"
+      ]
+    },
+    "record": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "journal_sequence",
+    "recorded_at",
+    "record_kind",
+    "record"
+  ]
+}

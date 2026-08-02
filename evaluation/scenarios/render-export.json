@@ -1,0 +1,23 @@
+{
+  "schema_version": "asw.evaluation_scenario.v1",
+  "scenario_id": "render-export",
+  "class": "render_export",
+  "primary": false,
+  "application_id": "app.eval-render",
+  "transition_kinds": [
+    "job.completed",
+    "artifact.available"
+  ],
+  "ground_truth_fields": [
+    "transition_ns",
+    "application_id",
+    "transition_kind"
+  ],
+  "applicable_baselines": [
+    "polling",
+    "filesystem_watch",
+    "ordinary_notification",
+    "repeated_observation",
+    "asw"
+  ]
+}

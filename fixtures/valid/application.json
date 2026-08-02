@@ -1,0 +1,14 @@
+{
+  "schema_version": "asw.application.v1",
+  "application_id": "app.visual-studio",
+  "display_name": "Visual Studio",
+  "identity": {
+    "kind": "executable",
+    "package_family_name": null,
+    "executable_path": "C:\\Program Files\\Microsoft Visual Studio\\devenv.exe",
+    "executable_name": "devenv.exe",
+    "publisher": "Microsoft"
+  },
+  "enabled": true,
+  "registered_at": "2026-08-01T12:00:00-04:00"
+}

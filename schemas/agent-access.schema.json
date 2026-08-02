@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:agent-access:v1",
+  "title": "ASW agent access grant",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.agent_access.v1"
+    },
+    "grant_id": {
+      "type": "string",
+      "pattern": "^grant_[A-Za-z0-9._-]+$"
+    },
+    "agent_subscriber_id": {
+      "type": "string",
+      "pattern": "^agent:[A-Za-z0-9._-]+$"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "applications": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "files",
+          "artifacts",
+          "processes",
+          "jobs",
+          "windows_ui",
+          "application",
+          "diagnostics",
+          "shared_artifacts",
+          "source_health"
+        ]
+      }
+    },
+    "allow_replay": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "grant_id",
+    "agent_subscriber_id",
+    "enabled",
+    "applications",
+    "categories",
+    "allow_replay",
+    "created_at",
+    "expires_at"
+  ]
+}

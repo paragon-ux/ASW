@@ -1,0 +1,47 @@
+{
+  "schema_version": "asw.journal_record.v1",
+  "journal_sequence": 9188,
+  "recorded_at": "2026-08-01T12:11:00-04:00",
+  "record_kind": "event",
+  "record": {
+    "schema_version": "asw.event.v1",
+    "event_id": "evt_save_1",
+    "type": "file.saved",
+    "application_id": "app.visual-studio",
+    "observed_at": "2026-08-01T12:11:00-04:00",
+    "source": {
+      "adapter": "application",
+      "source_id": "app:vs",
+      "source_epoch": "source-1",
+      "source_sequence": 3,
+      "reliability": "authoritative"
+    },
+    "subject": {
+      "kind": "path",
+      "value": {
+        "path": "C:\\src\\project\\main.cs"
+      }
+    },
+    "operation": {
+      "operation_id": "save-1",
+      "kind": "save",
+      "status": "completed"
+    },
+    "payload": {},
+    "frontier": {
+      "schema_version": "asw.frontier.v1",
+      "journal_sequence": 9188,
+      "runtime_epoch": "uuid-runtime-1",
+      "source_frontiers": {
+        "fs:workspace": {
+          "source_epoch": "uuid-fs-3",
+          "source_sequence": 42,
+          "source_cursor": null,
+          "snapshot_digest": "sha256:abc123",
+          "reconciliation_id": "recon-3"
+        }
+      },
+      "reducer_policy_version": "asw.reducer.v1"
+    }
+  }
+}

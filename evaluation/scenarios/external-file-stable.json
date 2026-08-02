@@ -1,0 +1,22 @@
+{
+  "schema_version": "asw.evaluation_scenario.v1",
+  "scenario_id": "external-file-stable",
+  "class": "file_artifact_transition",
+  "primary": true,
+  "application_id": "app.eval-file",
+  "transition_kinds": [
+    "file.modified"
+  ],
+  "ground_truth_fields": [
+    "transition_ns",
+    "application_id",
+    "transition_kind"
+  ],
+  "applicable_baselines": [
+    "polling",
+    "filesystem_watch",
+    "ordinary_notification",
+    "repeated_observation",
+    "asw"
+  ]
+}

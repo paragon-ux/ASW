@@ -1,0 +1,51 @@
+name: ASW release validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - agent/asw-v0-1-0-release
+    tags:
+      - v0.1.0
+
+permissions:
+  contents: read
+
+jobs:
+  release-validation:
+    runs-on: windows-2022
+    steps:
+      - name: Check out release tree
+        uses: actions/checkout@v4
+
+      - name: Set up qualified Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install qualified dependencies
+        run: python -m pip install -r requirements-windows-qualified.txt -r requirements-dev-qualified.txt
+
+      - name: Validate fixtures
+        run: python scripts\validate_fixtures.py
+
+      - name: Run core unit tests
+        run: python -m unittest discover -s tests -q
+
+      - name: Validate evaluation fixtures and schemas
+        run: python -m evaluation.validate
+
+      - name: Validate promoted accepted run
+        run: python -m evaluation.validate --run evaluation\results\asw-mvp-eval-20260802-05
+
+      - name: Run evaluation tests
+        run: python -m unittest discover -s evaluation/tests -q
+
+      - name: Verify frozen public evidence
+        run: python tools\verify_frozen_evidence.py
+
+      - name: Run deterministic release validator
+        run: python tools\validate_release.py

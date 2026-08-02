@@ -1,0 +1,20 @@
+{
+  "schema_version": "asw.schema_index.v1",
+  "schemas": [
+    "agent-access.schema.json",
+    "agent-stream-request.schema.json",
+    "application.schema.json",
+    "coordinate-payload.schema.json",
+    "delivery.schema.json",
+    "event.schema.json",
+    "frontier.schema.json",
+    "journal-record.schema.json",
+    "observation-authorization.schema.json",
+    "reducer-policy.schema.json",
+    "replay-cursor.schema.json",
+    "signal.schema.json",
+    "source-registration.schema.json",
+    "subscriber.schema.json",
+    "subscription.schema.json"
+  ]
+}

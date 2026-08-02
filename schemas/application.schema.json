@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:application:v1",
+  "title": "ASW application registration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.application.v1"
+    },
+    "application_id": {
+      "type": "string",
+      "pattern": "^(app\\.|asw\\.)([A-Za-z0-9._-]+)$"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "packaged",
+            "executable",
+            "registered",
+            "system",
+            "unknown"
+          ]
+        },
+        "package_family_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 512
+        },
+        "executable_path": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 32767
+        },
+        "executable_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 260
+        },
+        "publisher": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 512
+        }
+      },
+      "required": [
+        "kind"
+      ]
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "registered_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "application_id",
+    "display_name",
+    "identity",
+    "enabled",
+    "registered_at"
+  ]
+}

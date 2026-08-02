@@ -1,0 +1,33 @@
+{
+  "schema_version": "asw.evaluation_profile.v1",
+  "name": "asw-rfc0001-mvp",
+  "baselines": [
+    "polling",
+    "filesystem_watch_only",
+    "ordinary_windows_notification",
+    "repeated_visual_observation",
+    "asw_signals"
+  ],
+  "scenario_classes": [
+    "build_test",
+    "file_artifact",
+    "dialog_control",
+    "render_export",
+    "process_crash_restart"
+  ],
+  "metrics": [
+    "observation_count",
+    "transition_to_response_ms",
+    "attribution_accuracy",
+    "missed_signal_rate",
+    "duplicate_signal_rate",
+    "false_positive_signal_rate",
+    "continuation_success",
+    "agent_tool_cost"
+  ],
+  "repetitions": 10,
+  "thresholds": {
+    "missed_signal_rate_max": 0.02,
+    "duplicate_signal_rate_max": 0.02
+  }
+}

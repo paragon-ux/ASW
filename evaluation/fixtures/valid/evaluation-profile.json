@@ -1,0 +1,94 @@
+{
+  "schema_version": "asw.evaluation_profile.v1",
+  "run_id": "asw-mvp-eval-001",
+  "base_commit": "abcdef1234567890",
+  "frozen_at": "2026-08-02T18:00:00-04:00",
+  "seed": 20260802,
+  "primary_scenarios": [
+    "job_completion",
+    "file_artifact_transition",
+    "ui_transition"
+  ],
+  "secondary_scenarios": [
+    "render_export",
+    "process_crash_restart"
+  ],
+  "baselines": [
+    "polling",
+    "filesystem_watch",
+    "ordinary_notification",
+    "repeated_observation",
+    "asw"
+  ],
+  "layer_a_repetitions_primary": 20,
+  "layer_a_repetitions_secondary": 10,
+  "layer_b_repetitions": 3,
+  "poll_interval_ms": 250,
+  "scenario_deadline_ms": 15000,
+  "random_delay_ms": {
+    "min": 500,
+    "max": 2000
+  },
+  "ordinary_notification_template": "{application}: {plain_status_text}",
+  "agent": {
+    "model": "configured-by-repository",
+    "configuration": "same fixed configuration for both conditions",
+    "implementation": "deterministic-normalized-continuation-agent.v1",
+    "prompt_template": "Observe the normalized condition output and continue only from the declared signal fields.",
+    "tool_configuration": {
+      "operations": [
+        "observe",
+        "continue"
+      ],
+      "max_observation_calls": 2,
+      "max_continue_calls": 1
+    },
+    "max_tool_calls": 20,
+    "max_tokens": null
+  },
+  "metrics": {
+    "layer_a": [
+      "detected",
+      "detection_latency_ms",
+      "observation_count",
+      "missed",
+      "duplicate_count",
+      "false_positive_count",
+      "application_attribution_correct",
+      "kind_correct",
+      "subject_correct",
+      "localization_correct",
+      "continuation_ready"
+    ],
+    "layer_b": [
+      "continuation_success",
+      "agent_tool_calls",
+      "agent_observation_calls",
+      "continuation_latency_ms",
+      "incorrect_action_count",
+      "input_tokens",
+      "output_tokens"
+    ]
+  },
+  "selection_rule": {
+    "ordered_keys": [
+      "highest_detection_success",
+      "lowest_miss_rate",
+      "lowest_median_observation_count",
+      "lowest_median_detection_latency_ms",
+      "lexical_condition_id"
+    ]
+  },
+  "thresholds": {
+    "detection_success_min": 0.98,
+    "duplicate_rate_max": 0.02,
+    "false_positive_rate_max": 0.02,
+    "attribution_accuracy_min": 0.98,
+    "kind_accuracy_min": 0.98,
+    "layer_a_observation_reduction_min": 0.3,
+    "layer_a_required_primary_classes": 2,
+    "layer_a_detection_noninferiority_pp": 0.02,
+    "layer_b_success_noninferiority_pp": 0.05,
+    "layer_b_efficiency_improvement_min": 0.2
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:source-registration:v1",
+  "title": "ASW source registration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.source_registration.v1"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "adapter": {
+      "enum": [
+        "filesystem",
+        "process",
+        "job",
+        "uia",
+        "application",
+        "diagnostic"
+      ]
+    },
+    "application_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "authorization_id": {
+      "type": "string",
+      "pattern": "^auth_[A-Za-z0-9._-]+$"
+    },
+    "configuration": {
+      "type": "object"
+    },
+    "settle_profile": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "initial_delay_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 60000
+            },
+            "poll_interval_ms": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 60000
+            },
+            "required_stable_observations": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            },
+            "maximum_settle_ms": {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 300000
+            },
+            "stability_mode": {
+              "enum": [
+                "metadata",
+                "digest"
+              ]
+            }
+          },
+          "required": [
+            "initial_delay_ms",
+            "poll_interval_ms",
+            "required_stable_observations",
+            "maximum_settle_ms",
+            "stability_mode"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "registered_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "source_id",
+    "adapter",
+    "application_id",
+    "enabled",
+    "authorization_id",
+    "configuration",
+    "settle_profile",
+    "registered_at"
+  ]
+}

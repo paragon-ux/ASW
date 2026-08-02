@@ -1,0 +1,53 @@
+{
+  "schema_version": "asw.coordinate_payload.v1",
+  "coordinate_frame": "logical_px",
+  "monitor_id": "DISPLAY1",
+  "dpi_scale": 1.25,
+  "virtual_screen_rect": {
+    "x": -1920,
+    "y": 0,
+    "width": 3840,
+    "height": 2160
+  },
+  "monitor_rect": {
+    "x": 0,
+    "y": 0,
+    "width": 1920,
+    "height": 1080
+  },
+  "window_rect": {
+    "x": 40,
+    "y": 80,
+    "width": 1440,
+    "height": 900
+  },
+  "element_rect": {
+    "x": 842,
+    "y": 614,
+    "width": 138,
+    "height": 44
+  },
+  "visibility": "visible",
+  "enabled": true,
+  "focusable": true,
+  "localization_confidence": "observed",
+  "observed_frontier": {
+    "schema_version": "asw.frontier.v1",
+    "journal_sequence": 9188,
+    "runtime_epoch": "uuid-runtime-1",
+    "source_frontiers": {
+      "fs:workspace": {
+        "source_epoch": "uuid-fs-3",
+        "source_sequence": 42,
+        "source_cursor": null,
+        "snapshot_digest": "sha256:abc123",
+        "reconciliation_id": "recon-3"
+      }
+    },
+    "reducer_policy_version": "asw.reducer.v1"
+  },
+  "ephemeral_correlation": {
+    "uia_runtime_id": "42.17",
+    "hwnd": "0x001A02FC"
+  }
+}

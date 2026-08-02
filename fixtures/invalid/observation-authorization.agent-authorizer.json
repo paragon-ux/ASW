@@ -1,0 +1,15 @@
+{
+  "schema_version": "asw.observation_authorization.v1",
+  "authorization_id": "auth_bad",
+  "authorized_by": "agent:codex-1",
+  "enabled": true,
+  "scopes": [
+    {
+      "application_id": "app.visual-studio",
+      "source_id": "fs:x",
+      "source_kind": "filesystem"
+    }
+  ],
+  "created_at": "2026-08-01T12:00:00-04:00",
+  "updated_at": "2026-08-01T12:00:00-04:00"
+}

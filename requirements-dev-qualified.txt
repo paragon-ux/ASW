@@ -1,0 +1,7 @@
+# Exact validation dependencies used for Phase 9 package and core fixture
+# checks in the accepted CPython 3.11 environment.
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+referencing==0.37.0
+attrs==26.1.0
+rpds-py==2026.6.3

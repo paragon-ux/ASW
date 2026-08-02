@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:eval:scenario:v1",
+  "title": "ASW controlled scenario",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.evaluation_scenario.v1"
+    },
+    "scenario_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+    "class": {
+      "enum": [
+        "job_completion",
+        "file_artifact_transition",
+        "ui_transition",
+        "render_export",
+        "process_crash_restart"
+      ]
+    },
+    "primary": {
+      "type": "boolean"
+    },
+    "application_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "transition_kinds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "ground_truth_fields": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "applicable_baselines": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "polling",
+          "filesystem_watch",
+          "ordinary_notification",
+          "repeated_observation",
+          "asw"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "class",
+    "primary",
+    "application_id",
+    "transition_kinds",
+    "ground_truth_fields",
+    "applicable_baselines"
+  ]
+}

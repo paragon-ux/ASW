@@ -1,0 +1,28 @@
+{
+  "schema_version": "asw.delivery.v1",
+  "delivery_id": "delivery_1",
+  "signal_id": "sig_save_1",
+  "subscription_id": "sub_user_vs",
+  "subscriber_id": "user:local",
+  "destination": "windows_app_sdk",
+  "status": "delivered",
+  "attempted_at": "2026-08-01T12:11:01-04:00",
+  "completed_at": "2026-08-01T12:11:01-04:00",
+  "error_code": null,
+  "error_summary": null,
+  "frontier": {
+    "schema_version": "asw.frontier.v1",
+    "journal_sequence": 9188,
+    "runtime_epoch": "uuid-runtime-1",
+    "source_frontiers": {
+      "fs:workspace": {
+        "source_epoch": "uuid-fs-3",
+        "source_sequence": 42,
+        "source_cursor": null,
+        "snapshot_digest": "sha256:abc123",
+        "reconciliation_id": "recon-3"
+      }
+    },
+    "reducer_policy_version": "asw.reducer.v1"
+  }
+}

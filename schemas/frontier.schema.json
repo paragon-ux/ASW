@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:frontier:v1",
+  "title": "ASW local frontier",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.frontier.v1"
+    },
+    "journal_sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "runtime_epoch": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "source_frontiers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_epoch": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "source_sequence": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "source_cursor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 2048
+          },
+          "snapshot_digest": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^sha256:[A-Za-z0-9._:-]+$"
+          },
+          "reconciliation_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "source_epoch"
+        ]
+      }
+    },
+    "reducer_policy_version": {
+      "type": "string",
+      "pattern": "^asw\\.reducer\\.v[1-9][0-9]*$"
+    }
+  },
+  "required": [
+    "schema_version",
+    "journal_sequence",
+    "runtime_epoch",
+    "source_frontiers",
+    "reducer_policy_version"
+  ]
+}
