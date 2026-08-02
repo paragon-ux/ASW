@@ -1,9 +1,0 @@
-# Optional runtime dependencies for the Windows observation/delivery boundary.
-# The Windows App Runtime itself is an OS package and must be installed
-# separately by the host/application deployment.
-watchdog>=6.0
-psutil>=7.0
-uiautomation>=2.0
-winrt-runtime>=3.2.1
-winui3-Microsoft.Windows.AppNotifications>=3.2.1
-wasdk-Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap>=2.1.3

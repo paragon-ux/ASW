@@ -1,51 +1,49 @@
-# Application Signals for Windows
+# ASW - Application Signals for Windows
 
-This workspace contains the RFC 0001 MVP for **Application Signals for
-Windows (ASW)**, a GUI-first Windows 11 service for observing authorized
-application activity, reducing observations into canonical signals, and
-exposing bounded user and agent subscriptions.
+ASW is a GUI-first Windows 11 MVP that turns explicitly user-authorized application observations into deterministic, structured signals. Subscriptions filter existing signal history; Windows notifications and the local agent endpoint are delivery/read surfaces, not signal authority.
 
-## Project package
+## Release status and evidence
 
-The implementation package is [`asw-spec-codex`](./asw-spec-codex/), including
-the RFC, schemas, fixtures, source adapters, GUI, agent interface, and
-qualification evidence.
+This repository contains the RFC 0001 MVP, released as `v0.1.0` under the MIT License. The accepted evaluated core commit is `7d6e267c6e89cdcd8a71644c67c95d2ab4260330`; the accepted Phase 8 run is `asw-mvp-eval-20260802-05`, classified `SUPPORTED`.
 
-See the package [README](./asw-spec-codex/README.md) and the
-[MVP completion checklist](./asw-spec-codex/checklists/MVP_COMPLETION_CHECKLIST.md)
-for implementation details and verification status.
+In the preregistered controlled Windows MVP evaluation, ASW achieved 100% transition detection with 0% duplicate and false-positive useful-signal rates. It reduced median observation effort by 50% versus the mechanically selected `ordinary_notification` baseline in all three primary scenario classes. The bounded continuation comparison retained 100% success and reduced median observation calls and continuation latency by 50%.
 
-## Phase 8 evaluation
+These results apply only to bounded controlled Windows MVP scenarios. They do not establish universal application coverage, cross-platform behavior, production-scale reliability, or universal benefit for arbitrary agents. The secondary crash/restart probe recorded ASW `subject_accuracy = 0.0` and remains a disclosed limitation.
 
-The additive [`asw-evaluation-extension-codex`](./asw-evaluation-extension-codex/)
-package provides the controlled comparative harness that was not included in
-the core runtime qualification. It uses independent ground truth, executable
-non-ASW baselines, the committed ASW public/service interfaces, frozen run
-profiles, deterministic aggregation, and a bounded continuation comparison.
+See the [documentation index](docs/README.md), [installation guide](docs/getting-started/installation.md), [user guide](docs/guides/user-guide.md), [agent integration guide](docs/guides/agent-integration.md), [RFC 0001](docs/rfc/RFC-0001.md), [whitepaper](docs/research/WHITEPAPER.md), [evaluation results](docs/research/evaluation-results.md), and [security policy](SECURITY.md).
 
-The final Phase 8 MVP evaluation is `SUPPORTED` for the bounded RFC 0001
-proposition. The completed [evaluation checklist](./asw-evaluation-extension-codex/checklists/MVP_EVALUATION_COMPLETION_CHECKLIST.md)
-and [evidence report](./asw-evaluation-extension-codex/docs/EVALUATION_RESULTS_2026-08-02.md)
-document the thresholds, exclusions, raw evidence, and final classification.
+## How ASW works
 
-To reproduce the extension checks from its package directory:
-
-```powershell
-python -m evaluation.validate
-python -m unittest discover -s evaluation/tests -q
-python -m evaluation.validate --run evaluation/results/asw-mvp-eval-20260802-05
-python -m evaluation.aggregate evaluation/results/asw-mvp-eval-20260802-05
+```text
+user observation authorization
+        -> bounded source observations/events
+        -> deterministic canonical signals
+        -> user or agent subscriptions
+        -> Activity, Windows delivery, or bounded agent reads
 ```
 
-## Quick verification
+The reducer is finite, versioned, deterministic, and reject-by-default. Unsupported, unauthorized, invalid, hint-only, or degraded facts do not become ordinary signals. An append-only JSONL journal is authoritative; indexes and views are rebuildable projections.
 
-From the package directory:
+## Install and start
+
+The qualified environment is Windows 11 Pro build 22000, 64-bit, with CPython 3.11.9. Install Windows App Runtime 2.3.1 separately through the host/application deployment, then follow [Installation](docs/getting-started/installation.md):
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-windows-qualified.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev-qualified.txt
+.\.venv\Scripts\python.exe main.py
+```
+
+The normal user surface is the GUI. Normal agent operation uses the local structured endpoint and does not require the optional diagnostic CLI.
+
+## Development
 
 ```powershell
 python validate_fixtures.py
 python -m unittest discover -s tests -q
+python -m evaluation.validate
+python -m unittest discover -s evaluation/tests -q
 ```
 
-The optional Windows dependencies are listed in
-[`requirements-windows.txt`](./asw-spec-codex/requirements-windows.txt). The
-Windows App Runtime is installed separately by the host deployment.
+See [Contributing](CONTRIBUTING.md), [architecture](docs/reference/architecture.md), [reproducibility](docs/research/reproducibility.md), [known limitations](docs/reference/limitations.md), and [CHANGELOG](CHANGELOG.md). ASW is distributed under the [MIT License](LICENSE); third-party dependencies retain their own licenses as described in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

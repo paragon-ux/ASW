@@ -1,9 +1,0 @@
-{
-  "name": "asw-evaluation-extension-codex",
-  "title": "ASW Phase 8 \u2014 Controlled Evaluation & MVP Validation Extension",
-  "version": "1.0.0",
-  "depends_on": "committed ASW RFC 0001 core with completed implementation hard gate and Windows 11 runtime qualification",
-  "scope": "evaluation-only",
-  "core_modification_policy": "prohibited unless separately authorized after a reproducible evaluation blocker",
-  "schemas": 5
-}
