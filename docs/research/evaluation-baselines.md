@@ -22,6 +22,10 @@ The scenario emits a human-oriented text notification containing only the predec
 
 The plain text template MUST be frozen before runs.
 
+Under the frozen Layer B protocol, the ordinary-notification condition counts
+two observations: (1) notification receipt and (2) parsing/interpretation.
+Subscription setup and controlled event publication are excluded.
+
 ## B4 — Repeated observation
 
 Repeatedly inspect the relevant application/environment surface using the same bounded observation interval/budget declared in the profile. It represents explicit rechecking rather than event subscription.

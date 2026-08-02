@@ -171,8 +171,9 @@ class OrdinaryNotificationObserver(Observer):
         if kind is None:
             return self._missed(2, error="unrecognized_plain_status")
         state = {"kind": kind, "application_id": application_id, "subject": None}
-        # Receiving and parsing the message are both counted.  No structured
-        # ASW metadata, replay cursor, or private ground truth is consulted.
+        # The frozen protocol counts two observations: (1) notification
+        # receipt and (2) parsing/interpretation. No structured ASW metadata,
+        # replay cursor, or private ground truth is consulted.
         return self._recognized(surface=surface, now_ns=received_ns, observation_count=2, state=state, localization_correct=None)
 
 

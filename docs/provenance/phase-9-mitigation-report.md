@@ -49,7 +49,7 @@ Review: [Phase 9C review](reviews/phase-9c-review.md)
   Resolved by changing the methodology to three repetitions per primary scenario; with two scenarios per class, this yields six trials per condition/class.
 
 - **[P2] Observation-count contract was undefined**
-  Resolved by specifying one ASW stream result versus two ordinary-notification receipt/parsing observations, excluding subscription setup and controlled event publication.
+  Resolved by specifying the frozen contract exactly: ASW counts one structured signal-stream read; ordinary notification counts two observations, (1) notification receipt and (2) parsing/interpretation. Subscription setup and controlled event publication are excluded.
 
 - **[P2] Evaluation acquisition path was not independently resolvable**
   Resolved with origin/tag checkout instructions, the canonical evaluation path, and access-restricted source-archive guidance. Later triage further added [`tools/verify_frozen_evidence.py`](../../tools/verify_frozen_evidence.py) so recomputation occurs on an isolated copy.

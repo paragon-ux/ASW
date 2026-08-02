@@ -138,6 +138,8 @@ For every checked item, record concrete evidence in the item text, release repor
 - [x] No threshold was changed.
 - [x] No accepted classification was changed.
 - [x] Historical artifacts containing local paths were either preserved unchanged outside the public artifact or represented by a sanitized derived summary/reference.
+- [x] Accepted profile, ground truth, raw trials, agent usage, and aggregate are promoted byte-for-byte under `evaluation/results/asw-mvp-eval-20260802-05/`.
+- [x] The public run manifest is a schema-valid sanitized equivalent; the historical manifest containing workstation metadata remains unchanged in the ignored archive.
 
 ## 9. Provenance preservation
 
@@ -205,7 +207,7 @@ For every checked item, record concrete evidence in the item text, release repor
 - [x] `50%` is not called the preregistered gate.
 - [x] Layer B 20 ms versus 40 ms values are identified as normalized scripted protocol values.
 - [x] Layer B values are not described as measured Windows execution latency.
-- [x] Layer B observation-count contract is documented as 1 structured ASW stream observation vs. 2 ordinary-notification receipt/parsing observations.
+- [x] Layer B observation-count contract is documented as one structured signal-stream read vs. two observations: notification receipt and parsing/interpretation; subscription setup and controlled event publication are excluded.
 - [x] Public claims remain limited to the bounded RFC 0001 MVP proposition.
 - [x] Public docs do not claim universal application support.
 - [x] Public docs do not claim cross-platform validation.
@@ -413,7 +415,7 @@ Final classification evidence:
 ```text
 Classification: READY WITH DOCUMENTED NON-BLOCKING LIMITATIONS
 Rationale: All hard gates pass for the normalized ASW v0.1.0 tree; the accepted Phase 8 frozen evidence reproduces exactly, public claims are bounded, and the clean artifact operates without the construction archives.
-Documented non-blocking limitations, if any: Runtime qualification is Windows 11-specific and depends on the qualified Windows App Runtime/Python environment; Phase 8 is a deterministic controlled evaluation rather than live OS-transition coverage; Layer B 20 ms versus 40 ms values are normalized scripted protocol values and its observation-count comparison is one structured ASW stream observation versus two receipt/parsing observations; the bounded MVP does not claim universal application support, cross-platform validation, or general desktop understanding.
+Documented non-blocking limitations, if any: Runtime qualification is Windows 11-specific and depends on the qualified Windows App Runtime/Python environment; Phase 8 is a deterministic controlled evaluation rather than live OS-transition coverage; Layer B 20 ms versus 40 ms values are normalized scripted protocol values and its observation-count comparison is one structured signal-stream read versus two observations (notification receipt and parsing/interpretation), excluding subscription setup and controlled event publication; the bounded MVP does not claim universal application support, cross-platform validation, or general desktop understanding.
 ```
 
 ## 26. Release commit
@@ -474,7 +476,7 @@ Tagged commit: recorded from the parent-root v0.1.0 tag target in the final rele
 Final release evidence references:
 
 - The normalized release root is the parent ASW Git repository root; no nested Git repository remains in the release tree, and the public root contains `asw/`, `tests/`, `schemas/`, `fixtures/`, `evaluation/`, `tools/`, `scripts/`, and canonical `docs/`.
-- The construction workspaces are preserved under ignored `build-docs/`; the release artifact is built from the normalized root and excludes that archive, caches, bytecode, raw private evidence, and generated archives.
+- The construction workspaces are preserved under ignored `build-docs/`; the release artifact is built from the normalized root and excludes that archive, caches, bytecode, private historical evidence, and generated archives while including the accepted release-bound evidence under `evaluation/results/`.
 - Frozen evidence is anchored by run `asw-mvp-eval-20260802-05`, base commit `7d6e267c6e89cdcd8a71644c67c95d2ab4260330`, aggregate SHA-256 `80566B8C3BBC2DD7B4E729D243A1DE09E3BD68855E62C262A5C2232FBFDA527C`, profile digest `sha256:9c38bd41057e1933cda9c54c26fa143f775d7e6bbb5cd2848423ccd7cebeb1c7`, and counts `736/158/36`; historical Phase 8 evidence was not modified.
 - The final artifact filename and SHA-256, release commit SHA, and tag target are recorded in the final task handoff and the generated release manifest under ignored `release-artifacts/`.
 - Security/secret scans, MIT licensing, qualified dependency checks, clean-install smoke, unit/fixture/semantic/evaluation/link validation, artifact construction, and artifact inspection all passed. No remaining manual action is required beyond any explicitly external publication decision.

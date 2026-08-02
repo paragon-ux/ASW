@@ -9,6 +9,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _display_path(path: Path) -> str:
+    """Render repository-relative evidence paths in public reports."""
+
+    try:
+        return path.resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _pct(value: object) -> str:
     return "n/a" if value is None else f"{float(value) * 100:.1f}%"
 
@@ -76,6 +85,9 @@ def generate_report(run_dir: Path, destination: Path) -> Path:
             lines.append(f"| {scenario_class} | {condition} | {stats['trials']} | {_pct(stats['continuation_success'])} | {_num(stats['median_agent_observation_calls'])} | {_num(stats['median_continuation_latency_ms'])} |")
     lines.extend([
         "",
+        "Under the frozen Layer B protocol, ASW counts one structured signal-stream read. The ordinary-notification condition counts two observations: (1) notification receipt and (2) parsing/interpretation. Subscription setup and controlled event publication are excluded.",
+        "The 20 ms and 40 ms continuation values are normalized scripted protocol values, not independently measured Windows execution latency.",
+        "",
         "## Failures, exclusions, and integrity",
         "",
         f"- Ground-truth records: {audit['integrity'].get('ground_truth_records')}; unique IDs: {audit['integrity'].get('ground_truth_unique_trial_ids')}; completeness: {audit['integrity'].get('ground_truth_completeness_pass')}.",
@@ -99,17 +111,17 @@ def generate_report(run_dir: Path, destination: Path) -> Path:
         "",
         "## Evidence paths",
         "",
-        f"- Frozen profile: {run_dir / 'profile.json'}",
-        f"- Run manifest: {run_dir / 'run-manifest.json'}",
-        f"- Ground truth: {run_dir / 'ground-truth.jsonl'}",
-        f"- Raw trial results: {run_dir / 'raw-results.jsonl'}",
-        f"- Agent usage: {run_dir / 'agent-usage.jsonl'}",
-        f"- Aggregate summary: {run_dir / 'aggregate-summary.json'}",
+        f"- Frozen profile: {_display_path(run_dir / 'profile.json')}",
+        f"- Run manifest: {_display_path(run_dir / 'run-manifest.json')}",
+        f"- Ground truth: {_display_path(run_dir / 'ground-truth.jsonl')}",
+        f"- Raw trial results: {_display_path(run_dir / 'raw-results.jsonl')}",
+        f"- Agent usage: {_display_path(run_dir / 'agent-usage.jsonl')}",
+        f"- Aggregate summary: {_display_path(run_dir / 'aggregate-summary.json')}",
         "",
         "## Reproducibility",
         "",
-        f"    python -m evaluation.validate --run {run_dir}",
-        f"    python -m evaluation.aggregate {run_dir}",
+        f"    python -m evaluation.validate --run {_display_path(run_dir)}",
+        f"    python -m evaluation.aggregate {_display_path(run_dir)}",
         "",
         "A SUPPORTED result here is limited to this bounded controlled RFC 0001 MVP proposition; it does not establish universal application coverage, cross-platform behavior, or universal agent benefit.",
         "",
@@ -117,7 +129,7 @@ def generate_report(run_dir: Path, destination: Path) -> Path:
     invalidated = sorted(run_dir.parent.glob("*/INVALIDATED.md"))
     lines.insert(-1, "")
     if invalidated:
-        lines.insert(-1, "- Invalidation records: " + "; ".join(str(path) for path in invalidated) + ".")
+        lines.insert(-1, "- Invalidation records: " + "; ".join(_display_path(path) for path in invalidated) + ".")
     core_defect = audit["integrity"].get("core_defect_discovered")
     lines.insert(-1, f"- Core-defect audit: {'a reproducible core defect was recorded' if core_defect else 'no reproducible core defect was recorded'}.")
     destination.parent.mkdir(parents=True, exist_ok=True)

@@ -24,7 +24,7 @@ ROOT_FILES = (
     "THIRD_PARTY_NOTICES.md",
     "checklists/FINAL_RELEASE_CHECKLIST.md",
 )
-ROOT_DIRECTORIES = ("asw", "tests", "schemas", "fixtures", "evaluation", "tools", "scripts", "docs")
+ROOT_DIRECTORIES = ("asw", "tests", "schemas", "fixtures", "evaluation", "tools", "scripts", "docs", ".github")
 EXCLUDED_DIRECTORY_NAMES = {
     ".git",
     ".mypy_cache",

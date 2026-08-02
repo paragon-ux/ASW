@@ -1,0 +1,32 @@
+{
+  "schema_version": "asw.evaluation_run_manifest.v1",
+  "run_id": "asw-mvp-eval-20260802-05",
+  "base_commit": "7d6e267c6e89cdcd8a71644c67c95d2ab4260330",
+  "started_at": "2026-08-02T09:08:44Z",
+  "completed_at": "2026-08-02T09:09:37Z",
+  "host": {
+    "os": "Windows 11 Pro build 22000",
+    "architecture": "x64",
+    "python": "3.11.9",
+    "runtime": "cpython"
+  },
+  "asw_version": null,
+  "profile_digest": "sha256:9c38bd41057e1933cda9c54c26fa143f775d7e6bbb5cd2848423ccd7cebeb1c7",
+  "scenario_versions": {
+    "file_artifact_transition": "v1",
+    "job_completion": "v1",
+    "process_crash_restart": "v1",
+    "render_export": "v1",
+    "ui_transition": "v1"
+  },
+  "baseline_versions": {
+    "asw": "v1",
+    "filesystem_watch": "v1",
+    "ordinary_notification": "v1",
+    "polling": "v1",
+    "repeated_observation": "v1"
+  },
+  "harness_version": "1.0.0",
+  "raw_results_path": "raw-results.jsonl",
+  "ground_truth_path": "ground-truth.jsonl"
+}

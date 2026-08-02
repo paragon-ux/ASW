@@ -2,8 +2,11 @@
 
 This sanitized summary is the public-release anchor for the accepted run. The
 historical report and original manifest remain retained separately; they are
-not rewritten. This file intentionally uses repository-relative artifact paths
-and omits machine-local configuration paths.
+not rewritten. The accepted profile, ground truth, raw trials, agent usage, and
+aggregate are also promoted byte-for-byte into the canonical public run
+directory. The public run manifest is a schema-valid sanitized equivalent of
+the already-sanitized provenance manifest and omits the historical local
+configuration path and construction-worktree metadata.
 
 ## Accepted run
 
@@ -37,11 +40,13 @@ It did not invalidate the primary hard gate and is retained as a limitation.
 
 ## Reproduction artifacts
 
-The complete frozen run is in the evaluation package under:
+The complete release-bound frozen run is in the canonical evaluation tree:
 
 `evaluation/results/asw-mvp-eval-20260802-05/`
 
-It contains the profile, original manifest, independent ground truth, raw
-trial results, agent usage, aggregate summary, and validation inputs. Invalidated
-runs `-01` through `-04` remain retained with their invalidation records and are
-excluded from the accepted classification.
+It contains the profile, sanitized public run manifest, independent ground
+truth, raw trial results, agent usage, and aggregate summary. The original
+historical manifest remains only in the ignored construction/evidence archive
+because it contains machine-local metadata. Invalidated runs `-01` through
+`-04` remain retained with their invalidation records and are excluded from the
+accepted classification.

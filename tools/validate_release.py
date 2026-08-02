@@ -28,6 +28,13 @@ REQUIRED = [
     "asw/__init__.py", "tests/test_reducer.py", "schemas/index.json", "fixtures/valid/event.file-saved.json",
     "evaluation/__init__.py", "evaluation/schema.py", "evaluation/validate.py", "evaluation/schemas/evaluation-profile.schema.json",
     "evaluation/fixtures/valid/evaluation-profile.json", "evaluation/scenarios/job-success.json",
+    "evaluation/results/asw-mvp-eval-20260802-05/agent-usage.jsonl",
+    "evaluation/results/asw-mvp-eval-20260802-05/aggregate-summary.json",
+    "evaluation/results/asw-mvp-eval-20260802-05/ground-truth.jsonl",
+    "evaluation/results/asw-mvp-eval-20260802-05/profile.json",
+    "evaluation/results/asw-mvp-eval-20260802-05/raw-results.jsonl",
+    "evaluation/results/asw-mvp-eval-20260802-05/run-manifest.json",
+    ".github/workflows/release-validation.yml",
     "scripts/main.py", "scripts/validate_fixtures.py",
     "tools/build_release_artifact.py", "tools/inspect_release_artifact.py", "tools/verify_frozen_evidence.py", "tools/validate_release.py",
     "docs/README.md", "docs/getting-started/installation.md", "docs/getting-started/quickstart.md",
@@ -42,7 +49,7 @@ REQUIRED = [
     "checklists/FINAL_RELEASE_CHECKLIST.md",
 ]
 
-PUBLIC_DOC_DIRS = (ROOT / "docs",)
+PUBLIC_TEXT_DIRS = (ROOT / "docs", ROOT / "evaluation" / "results")
 PUBLIC_ROOT_FILES = ("README.md", "LICENSE", "SECURITY.md", "CHANGELOG.md", "CONTRIBUTING.md", "THIRD_PARTY_NOTICES.md")
 MACHINE_PATH = re.compile(r"(?i)(?:[A-Z]:\\Users\\|[A-Z]:/Users/|/Users/|/home/)")
 CREDENTIAL = re.compile(r"(?i)\b(?:bearer\s+[A-Za-z0-9._-]{20,}|(?:token|secret|password)\s*[:=]\s*[A-Za-z0-9+/=_-]{20,})")
@@ -63,7 +70,7 @@ def sha256(relative: str) -> str:
 
 def public_text_files() -> list[Path]:
     files = [ROOT / name for name in PUBLIC_ROOT_FILES]
-    for directory in PUBLIC_DOC_DIRS:
+    for directory in PUBLIC_TEXT_DIRS:
         files.extend(path for path in directory.rglob("*") if path.is_file() and path.name != "ASW-Repo-Release-v0-1-0.md")
     return sorted(files)
 
@@ -134,7 +141,9 @@ required_phrases = (
     "bounded controlled Windows MVP scenarios", "ordinary_notification", "subject_accuracy = 0.0",
     "Layer A used zero model calls", RUN_ID, "MIT", "controlled deterministic transition timelines",
     "ASWService.emit_event", "ScriptedContinuationAgent", "500 ms (inclusive) to 2000 ms (exclusive)",
-    "three repetitions per primary scenario", "notification receipt-and-parsing", "work.jlines@gmail.com",
+    "three repetitions per primary scenario", "one structured signal-stream read", "notification receipt",
+    "parsing/interpretation", "Subscription setup and controlled event publication are excluded",
+    "normalized scripted protocol values", "work.jlines@gmail.com",
 )
 for phrase in required_phrases:
     if phrase not in narrative_text:

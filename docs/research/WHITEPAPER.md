@@ -287,15 +287,14 @@ observation calls, and one continuation call. The frozen
 `ScriptedContinuationAgent` assigned normalized benchmark values from the
 structured subject: the structured ASW path received one observation call and
 20 ms of continuation latency, while the plain-text notification path received
-two calls and 40 ms. These are scripted protocol values, not independently
-measured OS execution latency; they quantify the frozen continuation policy.
-Layer B is therefore a bounded continuation configuration, not an external LLM
-evaluation, and the run makes no external-LLM generalization claim.
-
-For Layer B, an observation call means one result read from the ASW signal
-stream or one notification receipt-and-parsing operation under the frozen
-observer contract. Subscription setup and controlled event publication are
-excluded from that count.
+two calls and 40 ms. Under the frozen Layer B protocol, ASW counts one
+structured signal-stream read. The ordinary-notification condition counts two
+observations: (1) notification receipt and (2) parsing/interpretation.
+Subscription setup and controlled event publication are excluded. The 20 ms
+and 40 ms continuation values are normalized scripted protocol values, not
+independently measured Windows execution latency. Layer B is therefore a
+bounded continuation configuration, not an external LLM evaluation, and the
+run makes no external-LLM generalization claim.
 
 ### 7.6 Integrity and invalidation
 
@@ -398,11 +397,13 @@ and evidence boundary.
 
 The release package provides a sanitized [run manifest](../provenance/accepted-run-manifest.json),
 [evidence summary](../provenance/release-evidence-summary.md), [accepted
-aggregate](../provenance/accepted-aggregate.json), and [claims matrix](claims-and-evidence.md).
-The complete frozen run directory is retained unchanged in the release
-engineering evidence archive and was verified before construction-workspace
-archival; raw machine-metadata-bearing records are excluded from the public
-artifact.
+aggregate](../provenance/accepted-aggregate.json), [claims matrix](claims-and-evidence.md),
+and the canonical [accepted run evidence](../../evaluation/results/asw-mvp-eval-20260802-05/).
+The accepted profile, raw trial records, independent ground truth, agent usage,
+and aggregate are promoted byte-for-byte. The historical source manifest is
+retained unchanged in the release-engineering archive because it contains
+machine metadata; the public run directory uses a sanitized schema-valid
+equivalent instead.
 
 To reproduce from a source checkout, use the published source archive or the
 configured repository origin and select the proposed release revision:
@@ -423,7 +424,7 @@ From that package, the accepted validation path is:
 python -m evaluation.validate
 python -m unittest discover -s evaluation/tests -q
 python -m evaluation.validate --run evaluation/results/asw-mvp-eval-20260802-05
-python tools\verify_frozen_evidence.py --evaluation-root <immutable-evidence-bundle>
+python tools\verify_frozen_evidence.py
 ```
 
 The verification helper validates the accepted directory read-only, recomputes

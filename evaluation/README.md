@@ -15,13 +15,27 @@ This harness does not claim live operating-system transition coverage. Windows r
 - `evaluation/schema.py` and `evaluation/schemas/` - evaluation document validation.
 - `evaluation/fixtures/` - valid and intentionally invalid evaluation documents.
 - `evaluation/tests/` - harness contract tests.
-- `docs/provenance/` - sanitized accepted-run and aggregate evidence.
+- `evaluation/results/asw-mvp-eval-20260802-05/` - the accepted release-bound
+  profile, sanitized public run manifest, raw trials, ground truth, agent usage,
+  and aggregate.
+- `docs/provenance/` - sanitized release anchors and provenance.
 
 ## Scope and claim boundary
 
-The evaluation is additive release evidence; it does not reopen or alter ASW core semantics. Layer A uses zero model calls. Layer B compares a structured ASW stream result with the ordinary notification receipt-and-parsing baseline using the fixed `ScriptedContinuationAgent`.
+The evaluation is additive release evidence; it does not reopen or alter ASW
+core semantics. Layer A uses zero model calls. Under the frozen Layer B
+protocol, ASW counts one structured signal-stream read. The
+ordinary-notification condition counts two observations: (1) notification
+receipt and (2) parsing/interpretation. Subscription setup and controlled event
+publication are excluded. The 20 ms and 40 ms continuation values are
+normalized scripted protocol values, not independently measured Windows
+execution latency.
 
-The accepted run is `asw-mvp-eval-20260802-05`. Its public evidence is anchored by the accepted base commit, profile digest, aggregate hash, and record counts recorded in `docs/provenance/accepted-run-manifest.json` and `docs/provenance/accepted-aggregate.json`.
+The accepted run is `asw-mvp-eval-20260802-05`. Its public evidence is
+available under `evaluation/results/asw-mvp-eval-20260802-05/` and anchored by
+the accepted base commit, profile digest, aggregate hash, and record counts
+recorded in `docs/provenance/accepted-run-manifest.json` and
+`docs/provenance/accepted-aggregate.json`.
 
 Claims remain limited to bounded controlled Windows MVP scenarios. The results do not establish universal application support, cross-platform validation, universal agent benefit, or general-purpose desktop understanding.
 
@@ -32,6 +46,8 @@ Run commands from the repository root. The evaluation works without `build-docs/
 ```text
 python -m unittest discover -s evaluation/tests -p "test_*.py"
 python -m evaluation.validate
+python -m evaluation.validate --run evaluation/results/asw-mvp-eval-20260802-05
+python tools/verify_frozen_evidence.py
 python -m evaluation.run --help
 ```
 

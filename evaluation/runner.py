@@ -90,9 +90,12 @@ class ScriptedContinuationAgent:
                 "output_tokens": 16,
                 "incorrect_action_count": 0,
             }
-        # The agent is condition-blind.  It only sees the normalized observer
-        # output; richer structured subject data naturally needs fewer follow-
-        # up reads than a plain-text notification.
+        # The agent is condition-blind. It only sees the normalized observer
+        # output. Under the frozen Layer B protocol, one structured
+        # signal-stream read is counted for ASW; the ordinary-notification
+        # condition counts notification receipt and parsing/interpretation as
+        # two observations. Subscription setup and controlled event
+        # publication are excluded.
         structured_subject = observation.recognized_subject is not None
         action_calls = 2 if structured_subject else 3
         observation_calls = 1 if structured_subject else 2

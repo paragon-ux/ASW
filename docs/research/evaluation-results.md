@@ -11,9 +11,9 @@ This report is derived from the frozen profile, independent ground-truth JSONL, 
 - Frozen at: 2026-08-02T09:08:44Z
 - Completed at: 2026-08-02T09:09:37Z
 - Harness version: 1.0.0
-- Host: Windows-10-10.0.22000-SP0 / Python 3.11.9
+- Host: Windows 11 Pro build 22000 / Python 3.11.9
 - Accepted runtime qualification: Windows 11 Pro build 22000 (Python reports the compatible Windows build string above).
-- Core baseline status: True
+- Core baseline status: not recorded
 
 ## Hypothesis and frozen inputs
 
@@ -92,6 +92,9 @@ The preregistered rule (highest detection, then lowest misses, then median obser
 | ui_transition | asw | 6 | 100.0% | 1.00 | 20.00 |
 | ui_transition | ordinary_notification | 6 | 100.0% | 2.00 | 40.00 |
 
+Under the frozen Layer B protocol, ASW counts one structured signal-stream read. The ordinary-notification condition counts two observations: (1) notification receipt and (2) parsing/interpretation. Subscription setup and controlled event publication are excluded.
+The 20 ms and 40 ms continuation values are normalized scripted protocol values, not independently measured Windows execution latency.
+
 ## Failures, exclusions, and integrity
 
 - Ground-truth records: 158; unique IDs: 158; completeness: True.
@@ -115,18 +118,18 @@ The preregistered rule (highest detection, then lowest misses, then median obser
 
 ## Evidence paths
 
-- Sanitized run manifest: [accepted-run-manifest.json](../provenance/accepted-run-manifest.json)
-- Accepted aggregate: [accepted-aggregate.json](../provenance/accepted-aggregate.json)
-- Public evidence summary: [release-evidence-summary.md](../provenance/release-evidence-summary.md)
-- Immutable raw profile, ground truth, trial records, agent usage, and original manifest: retained in the release engineering evidence archive and excluded from the public artifact because the original manifest contains machine metadata.
+- Frozen profile: evaluation/results/asw-mvp-eval-20260802-05/profile.json
+- Run manifest: evaluation/results/asw-mvp-eval-20260802-05/run-manifest.json
+- Ground truth: evaluation/results/asw-mvp-eval-20260802-05/ground-truth.jsonl
+- Raw trial results: evaluation/results/asw-mvp-eval-20260802-05/raw-results.jsonl
+- Agent usage: evaluation/results/asw-mvp-eval-20260802-05/agent-usage.jsonl
+- Aggregate summary: evaluation/results/asw-mvp-eval-20260802-05/aggregate-summary.json
 
 ## Reproducibility
 
-    python -m evaluation.validate
-    python -m unittest discover -s evaluation/tests -q
-    python tools\verify_frozen_evidence.py --evaluation-root <immutable-evidence-bundle>
+    python -m evaluation.validate --run evaluation/results/asw-mvp-eval-20260802-05
+    python -m evaluation.aggregate evaluation/results/asw-mvp-eval-20260802-05
 
 A SUPPORTED result here is limited to this bounded controlled RFC 0001 MVP proposition; it does not establish universal application coverage, cross-platform behavior, or universal agent benefit.
 
-- Invalidation records for runs `asw-mvp-eval-20260802-01` through `-04` remain in the immutable evidence archive and are excluded from the accepted classification.
 - Core-defect audit: no reproducible core defect was recorded.

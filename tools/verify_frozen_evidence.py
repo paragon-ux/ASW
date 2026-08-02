@@ -1,9 +1,10 @@
-"""Verify the accepted Phase 8 run against an immutable evidence bundle.
+"""Verify the accepted Phase 8 run from canonical public release evidence.
 
-The public repository carries a sanitized aggregate and run manifest. The
-original raw JSONL and source manifest remain in the local construction archive
-because the historical manifest contains machine metadata and must not be
-rewritten. Pass that archive with ``--evaluation-root`` when running this gate.
+The accepted raw/profile/aggregate/ground-truth/agent-usage files are promoted
+byte-for-byte into ``evaluation/results``. The historical source manifest is
+not promoted because it contains workstation metadata; the public run
+manifest is a schema-valid sanitized equivalent derived from the existing
+sanitized provenance manifest.
 """
 
 from __future__ import annotations
@@ -23,6 +24,13 @@ RUN_ID = "asw-mvp-eval-20260802-05"
 BASE_COMMIT = "7d6e267c6e89cdcd8a71644c67c95d2ab4260330"
 EXPECTED_AGGREGATE = "80566B8C3BBC2DD7B4E729D243A1DE09E3BD68855E62C262A5C2232FBFDA527C"
 EXPECTED_COUNTS = {"raw-results.jsonl": 736, "ground-truth.jsonl": 158, "agent-usage.jsonl": 36}
+EXPECTED_EVIDENCE_SHA256 = {
+    "agent-usage.jsonl": "558F3CD6FB43716FA8C6FFAAEEC7B52D2A2B2D95F178CDEEF449E937D7BA8A98",
+    "aggregate-summary.json": EXPECTED_AGGREGATE,
+    "ground-truth.jsonl": "950A0BD234FB30AE4B9CAF5563369A83DB9BB37C3488609F9D6E82AB78463B83",
+    "profile.json": "9C38BD41057E1933CDA9C54C26FA143F775D7E6BBB5CD2848423CCD7CEBEB1C7",
+    "raw-results.jsonl": "CED42D998760DB5FABEEB5C59C38F133BFABFC1BDC7E3759BB9FA1BEB0B52DE6",
+}
 
 
 def sha256(path: Path) -> str:
@@ -57,38 +65,27 @@ def headline(summary: dict) -> dict:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--evaluation-root",
-        type=Path,
-        required=True,
-        help="immutable evaluation archive containing evaluation/ and fixtures/",
-    )
-    parser.add_argument("--run-id", default=RUN_ID)
-    args = parser.parse_args()
-
-    if args.run_id != RUN_ID:
-        raise SystemExit(f"refusing non-accepted run: {args.run_id}")
-    evaluation_root = args.evaluation_root.resolve()
-    run_dir = evaluation_root / "evaluation" / "results" / RUN_ID
+    argparse.ArgumentParser(description=__doc__).parse_args()
+    run_dir = ROOT / "evaluation" / "results" / RUN_ID
     if not run_dir.is_dir():
         raise SystemExit(f"missing accepted run directory: {run_dir}")
 
-    sys.path.insert(0, str(evaluation_root))
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
     from evaluation.profile import digest
 
     profile_path = run_dir / "profile.json"
     manifest_path = run_dir / "run-manifest.json"
-    original_aggregate_path = run_dir / "aggregate-summary.json"
+    aggregate_path = run_dir / "aggregate-summary.json"
     public_aggregate_path = ROOT / "docs" / "provenance" / "accepted-aggregate.json"
     profile = read_json(profile_path)
     manifest = read_json(manifest_path)
-    original_aggregate = read_json(original_aggregate_path)
-    original_aggregate_hash = sha256(original_aggregate_path)
+    original_aggregate = read_json(aggregate_path)
+    original_aggregate_hash = sha256(aggregate_path)
 
     subprocess.run(
         [sys.executable, "-m", "evaluation.validate", "--run", str(run_dir)],
-        cwd=evaluation_root,
+        cwd=ROOT,
         check=True,
     )
 
@@ -98,6 +95,10 @@ def main() -> int:
         raise SystemExit("base commit mismatch")
     if digest(profile) != manifest["profile_digest"]:
         raise SystemExit("profile digest mismatch")
+    for filename, expected in EXPECTED_EVIDENCE_SHA256.items():
+        actual = sha256(run_dir / filename)
+        if actual != expected:
+            raise SystemExit(f"public evidence hash mismatch for {filename}: expected {expected}, actual {actual}")
     for filename, expected in EXPECTED_COUNTS.items():
         actual = jsonl_count(run_dir / filename)
         if actual != expected:
@@ -106,14 +107,14 @@ def main() -> int:
         raise SystemExit(f"accepted aggregate hash mismatch: {original_aggregate_hash}")
 
     with tempfile.TemporaryDirectory(prefix="asw-frozen-evidence-") as temp_dir:
-        isolated_root = Path(temp_dir) / evaluation_root.name
+        isolated_root = Path(temp_dir) / ROOT.name
         isolated_run = isolated_root / "evaluation" / "results" / RUN_ID
         isolated_run.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(run_dir, isolated_run)
-        shutil.copytree(evaluation_root / "fixtures" / "scenarios", isolated_root / "fixtures" / "scenarios")
+        shutil.copytree(ROOT / "evaluation" / "scenarios", isolated_root / "evaluation" / "scenarios")
         subprocess.run(
             [sys.executable, "-m", "evaluation.aggregate", str(isolated_run)],
-            cwd=evaluation_root,
+            cwd=ROOT,
             check=True,
         )
         recomputed_path = isolated_run / "aggregate-summary.json"
