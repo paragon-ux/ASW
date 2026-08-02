@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:eval:trial-result:v1",
+  "title": "ASW evaluation trial result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.evaluation_trial_result.v1"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "trial_id": {
+      "type": "string"
+    },
+    "scenario_id": {
+      "type": "string"
+    },
+    "condition": {
+      "enum": [
+        "polling",
+        "filesystem_watch",
+        "ordinary_notification",
+        "repeated_observation",
+        "asw"
+      ]
+    },
+    "repetition": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "not_applicable",
+        "error"
+      ]
+    },
+    "ground_truth_transition_ns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "recognized_ns": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "detected": {
+      "type": "boolean"
+    },
+    "missed": {
+      "type": "boolean"
+    },
+    "detection_latency_ms": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "observation_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "duplicate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "false_positive_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "application_attribution_correct": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "kind_correct": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "subject_correct": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "localization_correct": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "continuation_ready": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "continuation_success": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "continuation_latency_ms": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "agent_tool_calls": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "agent_observation_calls": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "input_tokens": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "output_tokens": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "incorrect_action_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "error": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 2048
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "trial_id",
+    "scenario_id",
+    "condition",
+    "repetition",
+    "status",
+    "ground_truth_transition_ns",
+    "recognized_ns",
+    "detected",
+    "missed",
+    "detection_latency_ms",
+    "observation_count",
+    "duplicate_count",
+    "false_positive_count",
+    "application_attribution_correct",
+    "kind_correct",
+    "subject_correct",
+    "localization_correct",
+    "continuation_ready",
+    "continuation_success",
+    "continuation_latency_ms",
+    "agent_tool_calls",
+    "agent_observation_calls",
+    "input_tokens",
+    "output_tokens",
+    "incorrect_action_count",
+    "error"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "asw.evaluation_scenario.v1",
+  "scenario_id": "job-success",
+  "class": "job_completion",
+  "primary": true,
+  "application_id": "app.eval-job",
+  "transition_kinds": [
+    "job.completed"
+  ],
+  "ground_truth_fields": [
+    "transition_ns",
+    "application_id",
+    "transition_kind"
+  ],
+  "applicable_baselines": [
+    "polling",
+    "ordinary_notification",
+    "repeated_observation",
+    "asw"
+  ]
+}

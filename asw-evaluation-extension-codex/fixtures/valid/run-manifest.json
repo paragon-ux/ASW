@@ -1,0 +1,22 @@
+{
+  "schema_version": "asw.evaluation_run_manifest.v1",
+  "run_id": "asw-mvp-eval-001",
+  "base_commit": "abcdef1234567890",
+  "started_at": "2026-08-02T18:00:00-04:00",
+  "completed_at": null,
+  "host": {
+    "os": "Windows 11 Pro"
+  },
+  "asw_version": null,
+  "profile_digest": "sha256:abc123",
+  "scenario_versions": {
+    "job-success": "v1"
+  },
+  "baseline_versions": {
+    "polling": "v1",
+    "asw": "v1"
+  },
+  "harness_version": "v1",
+  "raw_results_path": "results/raw.jsonl",
+  "ground_truth_path": "results/ground-truth.jsonl"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "asw.evaluation_scenario.v1",
+  "scenario_id": "operation-available",
+  "class": "ui_transition",
+  "primary": true,
+  "application_id": "app.eval-ui",
+  "transition_kinds": [
+    "operation.available"
+  ],
+  "ground_truth_fields": [
+    "transition_ns",
+    "application_id",
+    "transition_kind"
+  ],
+  "applicable_baselines": [
+    "polling",
+    "ordinary_notification",
+    "repeated_observation",
+    "asw"
+  ]
+}

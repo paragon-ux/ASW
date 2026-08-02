@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:eval:run-manifest:v1",
+  "title": "ASW evaluation run manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.evaluation_run_manifest.v1"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "base_commit": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "host": {
+      "type": "object"
+    },
+    "asw_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "profile_digest": {
+      "type": "string",
+      "pattern": "^sha256:"
+    },
+    "scenario_versions": {
+      "type": "object"
+    },
+    "baseline_versions": {
+      "type": "object"
+    },
+    "harness_version": {
+      "type": "string"
+    },
+    "raw_results_path": {
+      "type": "string"
+    },
+    "ground_truth_path": {
+      "type": "string"
+    },
+    "baseline_verification": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "base_commit",
+    "started_at",
+    "completed_at",
+    "host",
+    "asw_version",
+    "profile_digest",
+    "scenario_versions",
+    "baseline_versions",
+    "harness_version",
+    "raw_results_path",
+    "ground_truth_path"
+  ]
+}

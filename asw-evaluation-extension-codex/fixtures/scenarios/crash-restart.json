@@ -1,0 +1,22 @@
+{
+  "schema_version": "asw.evaluation_scenario.v1",
+  "scenario_id": "crash-restart",
+  "class": "process_crash_restart",
+  "primary": false,
+  "application_id": "app.eval-crash",
+  "transition_kinds": [
+    "process.crashed",
+    "process.restarted"
+  ],
+  "ground_truth_fields": [
+    "transition_ns",
+    "application_id",
+    "transition_kind"
+  ],
+  "applicable_baselines": [
+    "polling",
+    "ordinary_notification",
+    "repeated_observation",
+    "asw"
+  ]
+}

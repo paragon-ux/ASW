@@ -1,0 +1,11 @@
+{
+  "schema_version": "asw.evaluation_summary.v1",
+  "run_id": "asw-mvp-eval-001",
+  "base_commit": "abcdef1234567890",
+  "layer_a": {},
+  "best_non_asw_baseline_by_scenario": {},
+  "layer_b": {},
+  "threshold_audit": {},
+  "classification": "INCONCLUSIVE",
+  "generated_at": "2026-08-02T20:00:00-04:00"
+}

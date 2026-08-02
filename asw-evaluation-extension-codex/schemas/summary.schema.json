@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:eval:summary:v1",
+  "title": "ASW evaluation aggregate summary",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.evaluation_summary.v1"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "base_commit": {
+      "type": "string"
+    },
+    "layer_a": {
+      "type": "object"
+    },
+    "best_non_asw_baseline_by_scenario": {
+      "type": "object"
+    },
+    "layer_b": {
+      "type": "object"
+    },
+    "threshold_audit": {
+      "type": "object"
+    },
+    "classification": {
+      "enum": [
+        "SUPPORTED",
+        "NOT_SUPPORTED",
+        "INCONCLUSIVE"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "base_commit",
+    "layer_a",
+    "best_non_asw_baseline_by_scenario",
+    "layer_b",
+    "threshold_audit",
+    "classification",
+    "generated_at"
+  ]
+}
