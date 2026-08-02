@@ -123,6 +123,8 @@ attributes = read(".gitattributes")
 for evidence_pattern in (
     "/evaluation/results/asw-mvp-eval-20260802-05/*.jsonl -text",
     "/evaluation/results/asw-mvp-eval-20260802-05/*.json -text",
+    "/docs/provenance/accepted-aggregate.json -text",
+    "/docs/provenance/accepted-run-manifest.json -text",
 ):
     if evidence_pattern not in attributes.splitlines():
         fail(f".gitattributes does not preserve accepted evidence bytes: {evidence_pattern}")
