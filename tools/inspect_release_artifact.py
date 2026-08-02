@@ -10,6 +10,7 @@ from pathlib import Path
 REQUIRED_PREFIXES = ("asw/", "tests/", "schemas/", "fixtures/", "evaluation/", "tools/", "scripts/", "docs/", ".github/")
 REQUIRED_FILES = {
     "README.md",
+    ".gitattributes",
     "LICENSE",
     "SECURITY.md",
     "CHANGELOG.md",

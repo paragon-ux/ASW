@@ -138,6 +138,7 @@ For every checked item, record concrete evidence in the item text, release repor
 - [x] No threshold was changed.
 - [x] No accepted classification was changed.
 - [x] Historical artifacts containing local paths were either preserved unchanged outside the public artifact or represented by a sanitized derived summary/reference.
+- [x] `.gitattributes` marks promoted accepted evidence as non-text so Windows checkouts preserve its bytes.
 - [x] Accepted profile, ground truth, raw trials, agent usage, and aggregate are promoted byte-for-byte under `evaluation/results/asw-mvp-eval-20260802-05/`.
 - [x] The public run manifest is a schema-valid sanitized equivalent; the historical manifest containing workstation metadata remains unchanged in the ignored archive.
 

@@ -23,7 +23,7 @@ CLASSIFICATION_LABELS = {
 }
 
 REQUIRED = [
-    "README.md", "LICENSE", "SECURITY.md", "CHANGELOG.md", "CONTRIBUTING.md", "PACKAGE.json", "pyproject.toml",
+    ".gitattributes", "README.md", "LICENSE", "SECURITY.md", "CHANGELOG.md", "CONTRIBUTING.md", "PACKAGE.json", "pyproject.toml",
     "requirements-windows-qualified.txt", "requirements-dev-qualified.txt", "THIRD_PARTY_NOTICES.md",
     "asw/__init__.py", "tests/test_reducer.py", "schemas/index.json", "fixtures/valid/event.file-saved.json",
     "evaluation/__init__.py", "evaluation/schema.py", "evaluation/validate.py", "evaluation/schemas/evaluation-profile.schema.json",
@@ -119,6 +119,13 @@ if not all(checks.values()):
 
 if not (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines().count("/build-docs/") == 1:
     fail(".gitignore must contain exactly one /build-docs/ rule")
+attributes = read(".gitattributes")
+for evidence_pattern in (
+    "/evaluation/results/asw-mvp-eval-20260802-05/*.jsonl -text",
+    "/evaluation/results/asw-mvp-eval-20260802-05/*.json -text",
+):
+    if evidence_pattern not in attributes.splitlines():
+        fail(f".gitattributes does not preserve accepted evidence bytes: {evidence_pattern}")
 if not read("SECURITY.md").count("mailto:work.jlines@gmail.com"):
     fail("SECURITY.md lacks the configured private reporting route")
 if not read("LICENSE").startswith("MIT License") or "Copyright (c) 2026 paragon-ux" not in read("LICENSE"):
