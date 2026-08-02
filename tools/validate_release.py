@@ -28,6 +28,7 @@ REQUIRED = [
     "asw/__init__.py", "tests/test_reducer.py", "schemas/index.json", "fixtures/valid/event.file-saved.json",
     "evaluation/__init__.py", "evaluation/schema.py", "evaluation/validate.py", "evaluation/schemas/evaluation-profile.schema.json",
     "evaluation/fixtures/valid/evaluation-profile.json", "evaluation/scenarios/job-success.json",
+    "scripts/main.py", "scripts/validate_fixtures.py",
     "tools/build_release_artifact.py", "tools/inspect_release_artifact.py", "tools/verify_frozen_evidence.py", "tools/validate_release.py",
     "docs/README.md", "docs/getting-started/installation.md", "docs/getting-started/quickstart.md",
     "docs/guides/user-guide.md", "docs/guides/agent-integration.md", "docs/guides/troubleshooting.md",

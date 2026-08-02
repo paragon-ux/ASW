@@ -1,5 +1,10 @@
 """Launch the GUI-first ASW MVP against a local journal."""
+import sys
 from pathlib import Path
+
+root = Path(__file__).resolve().parents[1]
+if str(root) not in sys.path:
+    sys.path.insert(0, str(root))
 
 from asw.agent_api import LocalAgentServer
 from asw.defaults import mvp_policy
@@ -7,8 +12,6 @@ from asw.delivery import WindowsAppSdkDelivery, WindowsAppSdkSender
 from asw.gui import launch
 from asw.service import ASWService
 from asw.sources import WindowsObservationRuntime
-
-root = Path(__file__).resolve().parent
 
 
 def run() -> None:

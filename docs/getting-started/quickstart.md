@@ -6,7 +6,7 @@ This is the shortest useful path through the GUI. It assumes the dependencies ar
 
 ```powershell
 Set-Location <repo-root>
-.\.venv\Scripts\python.exe main.py
+.\.venv\Scripts\python.exe scripts\main.py
 ```
 
 ASW opens on **Activity**. The local service and optional loopback agent endpoint start with the GUI.

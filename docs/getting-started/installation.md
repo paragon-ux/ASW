@@ -50,7 +50,7 @@ The accepted qualification observed the Windows App Runtime 2.3.1 components wit
 ## Start the GUI
 
 ```powershell
-.\.venv\Scripts\python.exe main.py
+.\.venv\Scripts\python.exe scripts\main.py
 ```
 
 The launcher creates local application data under `data\`, starts the loopback agent server, starts available Windows observation bridges, and opens the GUI. Treat the journal as local sensitive data: it can contain paths, application identifiers, and source metadata.
@@ -60,7 +60,7 @@ The launcher creates local application data under `data\`, starts the loopback a
 From the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe validate_fixtures.py
+.\.venv\Scripts\python.exe scripts\validate_fixtures.py
 .\.venv\Scripts\python.exe -m unittest discover -s tests -q
 .\.venv\Scripts\python.exe -m evaluation.validate
 .\.venv\Scripts\python.exe -m unittest discover -s evaluation/tests -q

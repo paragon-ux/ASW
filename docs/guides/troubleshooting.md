@@ -6,13 +6,13 @@ Confirm that the command is run from the repository root and that the virtual
 environment is active:
 
 ```powershell
-.\.venv\Scripts\python.exe main.py
+.\.venv\Scripts\python.exe scripts\main.py
 ```
 
 Then run the focused contract checks:
 
 ```powershell
-.\.venv\Scripts\python.exe validate_fixtures.py
+.\.venv\Scripts\python.exe scripts\validate_fixtures.py
 .\.venv\Scripts\python.exe -m unittest discover -s tests -q
 ```
 

@@ -4,14 +4,14 @@ RFC 0001 is not complete until **every applicable item below has passing evidenc
 
 ## Product surfaces
 
-- [x] Windows GUI is the primary user surface (`main.py`, `asw/gui.py`; Tk smoke check).
+- [x] Windows GUI is the primary user surface (`scripts/main.py`, `asw/gui.py`; Tk smoke check).
 - [x] Activity groups signal history by application and sorts newest first by default (`tests/test_gui.py`).
 - [x] Subscriptions UI lets users select applications/categories and delivery destinations (`asw/gui.py`).
 - [x] Applications UI exposes observation state and source health (`asw/gui.py`).
 - [x] Sources & Permissions UI controls observation authorization separately from subscriptions (`asw/gui.py`, `tests/test_semantics.py`).
 - [x] Agents UI grants/revokes per-agent application/category access (`asw/gui.py`, `tests/test_semantics.py`).
 - [x] Normal agent operation does not require the CLI (`tests/test_agent_api.py::test_loopback_agent_server_authenticates_and_dispatches_without_cli`).
-- [x] Developer CLI, if present, is diagnostic/conformance tooling only (`validate_fixtures.py`; no product CLI).
+- [x] Developer CLI, if present, is diagnostic/conformance tooling only (`scripts/validate_fixtures.py`; no product CLI).
 
 ## Observation and sources
 
@@ -34,7 +34,7 @@ RFC 0001 is not complete until **every applicable item below has passing evidenc
 
 ## Subscribers and access
 
-- [x] User and agent subscriber kinds are schema-validated (`validate_fixtures.py`, `schemas/subscriber.schema.json`).
+- [x] User and agent subscriber kinds are schema-validated (`scripts/validate_fixtures.py`, `schemas/subscriber.schema.json`).
 - [x] Both users and agents can create application/category subscriptions (`tests/test_service.py`, `tests/test_semantics.py`).
 - [x] Subscription changes do not alter canonical signal history (`tests/test_service.py::test_subscription_does_not_create_or_remove_signal_history`).
 - [x] Agent subscriptions cannot expand observation authorization (`tests/test_service.py::test_administrative_grant_outside_authorization_cannot_read`).
@@ -66,8 +66,8 @@ RFC 0001 is not complete until **every applicable item below has passing evidenc
 
 ## Conformance and evaluation
 
-- [x] Every valid fixture validates (`python validate_fixtures.py`).
-- [x] Every invalid JSON fixture fails schema validation (`python validate_fixtures.py`).
+- [x] Every valid fixture validates (`python scripts/validate_fixtures.py`).
+- [x] Every invalid JSON fixture fails schema validation (`python scripts/validate_fixtures.py`).
 - [x] Semantic fail-closed cases have executable tests (`tests/test_semantics.py`).
 - [x] Comparative fixtures cover polling, file watching, ordinary notifications, repeated observation, and ASW signals (`fixtures/evaluation/profile.json`, `tests/test_evaluation.py`).
 - [x] Evaluation profile is predeclared before comparative runs (`fixtures/evaluation/profile.json`, `tests/test_evaluation.py`).

@@ -4,7 +4,7 @@ import json, sys
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parents[1]
 SCHEMAS=ROOT/'schemas'
 VALID=ROOT/'fixtures'/'valid'
 INVALID=ROOT/'fixtures'/'invalid'

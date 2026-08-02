@@ -22,11 +22,9 @@ ROOT_FILES = (
     "requirements-windows-qualified.txt",
     "requirements-dev-qualified.txt",
     "THIRD_PARTY_NOTICES.md",
-    "main.py",
-    "validate_fixtures.py",
     "checklists/FINAL_RELEASE_CHECKLIST.md",
 )
-ROOT_DIRECTORIES = ("asw", "tests", "schemas", "fixtures", "evaluation", "tools", "docs")
+ROOT_DIRECTORIES = ("asw", "tests", "schemas", "fixtures", "evaluation", "tools", "scripts", "docs")
 EXCLUDED_DIRECTORY_NAMES = {
     ".git",
     ".mypy_cache",

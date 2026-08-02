@@ -10,7 +10,7 @@ evidence, and limitations.
 From the repository root:
 
 ```powershell
-python validate_fixtures.py
+python scripts\validate_fixtures.py
 python -m unittest discover -s tests -q
 ```
 

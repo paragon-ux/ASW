@@ -7,7 +7,7 @@ import zipfile
 from pathlib import Path
 
 
-REQUIRED_PREFIXES = ("asw/", "tests/", "schemas/", "fixtures/", "evaluation/", "tools/", "docs/")
+REQUIRED_PREFIXES = ("asw/", "tests/", "schemas/", "fixtures/", "evaluation/", "tools/", "scripts/", "docs/")
 REQUIRED_FILES = {
     "README.md",
     "LICENSE",

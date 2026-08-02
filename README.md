@@ -32,7 +32,7 @@ The qualified environment is Windows 11 Pro build 22000, 64-bit, with CPython 3.
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-windows-qualified.txt
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev-qualified.txt
-.\.venv\Scripts\python.exe main.py
+.\.venv\Scripts\python.exe scripts\main.py
 ```
 
 The normal user surface is the GUI. Normal agent operation uses the local structured endpoint and does not require the optional diagnostic CLI.
@@ -40,7 +40,7 @@ The normal user surface is the GUI. Normal agent operation uses the local struct
 ## Development
 
 ```powershell
-python validate_fixtures.py
+python scripts\validate_fixtures.py
 python -m unittest discover -s tests -q
 python -m evaluation.validate
 python -m unittest discover -s evaluation/tests -q

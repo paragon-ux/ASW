@@ -473,7 +473,7 @@ Tagged commit: recorded from the parent-root v0.1.0 tag target in the final rele
 
 Final release evidence references:
 
-- The normalized release root is the parent ASW Git repository root; no nested Git repository remains in the release tree, and the public root contains `asw/`, `tests/`, `schemas/`, `fixtures/`, `evaluation/`, `tools/`, and canonical `docs/`.
+- The normalized release root is the parent ASW Git repository root; no nested Git repository remains in the release tree, and the public root contains `asw/`, `tests/`, `schemas/`, `fixtures/`, `evaluation/`, `tools/`, `scripts/`, and canonical `docs/`.
 - The construction workspaces are preserved under ignored `build-docs/`; the release artifact is built from the normalized root and excludes that archive, caches, bytecode, raw private evidence, and generated archives.
 - Frozen evidence is anchored by run `asw-mvp-eval-20260802-05`, base commit `7d6e267c6e89cdcd8a71644c67c95d2ab4260330`, aggregate SHA-256 `80566B8C3BBC2DD7B4E729D243A1DE09E3BD68855E62C262A5C2232FBFDA527C`, profile digest `sha256:9c38bd41057e1933cda9c54c26fa143f775d7e6bbb5cd2848423ccd7cebeb1c7`, and counts `736/158/36`; historical Phase 8 evidence was not modified.
 - The final artifact filename and SHA-256, release commit SHA, and tag target are recorded in the final task handoff and the generated release manifest under ignored `release-artifacts/`.
