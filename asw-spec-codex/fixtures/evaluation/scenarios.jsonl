@@ -1,0 +1,5 @@
+{"id":"build-success","application":"app.visual-studio","transition":"job.completed","expected_category":"jobs"}
+{"id":"external-save","application":"app.visual-studio","transition":"file.saved","expected_category":"files"}
+{"id":"permission-dialog","application":"app.visual-studio","transition":"dialog.appeared","expected_category":"windows_ui"}
+{"id":"render-finish","application":"app.blender","transition":"job.completed","expected_category":"jobs"}
+{"id":"process-crash","application":"app.example","transition":"process.crashed","expected_category":"processes"}

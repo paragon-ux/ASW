@@ -1,0 +1,10 @@
+{
+  "name": "asw-spec-codex",
+  "title": "Application Signals for Windows \u2014 RFC 0001 Codex Package",
+  "version": "0.2.0",
+  "rfc": "RFC-0001.md",
+  "primary_ui": "windows_gui",
+  "agent_interface": "local_structured_subscription_protocol",
+  "developer_cli": "optional_diagnostic_only",
+  "schema_count": 15
+}

@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:reducer-policy:v1",
+  "title": "ASW reducer policy",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.reducer_policy.v1"
+    },
+    "policy_version": {
+      "pattern": "^asw\\.reducer\\.v[1-9][0-9]*$"
+    },
+    "default_action": {
+      "const": "reject"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "pattern": "^rule_[A-Za-z0-9._-]+$"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "match": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_types": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "file.created",
+                    "file.modified",
+                    "file.deleted",
+                    "file.saved",
+                    "artifact.available",
+                    "process.started",
+                    "process.completed",
+                    "process.failed",
+                    "process.crashed",
+                    "process.restarted",
+                    "job.completed",
+                    "job.failed",
+                    "window.created",
+                    "dialog.appeared",
+                    "operation.available",
+                    "operation.completed",
+                    "diagnostic.changed",
+                    "shared_artifact.updated",
+                    "source.degraded",
+                    "source.reconciled"
+                  ]
+                }
+              },
+              "reliability": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "authoritative",
+                    "observed"
+                  ]
+                }
+              },
+              "requires_authorization": {
+                "const": true
+              }
+            },
+            "required": [
+              "event_types",
+              "reliability",
+              "requires_authorization"
+            ]
+          },
+          "action": {
+            "enum": [
+              "emit",
+              "reject"
+            ]
+          },
+          "emit": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "category": {
+                "enum": [
+                  "files",
+                  "artifacts",
+                  "processes",
+                  "jobs",
+                  "windows_ui",
+                  "application",
+                  "diagnostics",
+                  "shared_artifacts",
+                  "source_health"
+                ]
+              },
+              "kind_from_event": {
+                "const": true
+              },
+              "dedupe_key_fields": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "application_id",
+                    "type",
+                    "subject.kind",
+                    "subject.value",
+                    "operation.operation_id",
+                    "operation.kind",
+                    "source.source_id"
+                  ]
+                }
+              },
+              "supersession_mode": {
+                "enum": [
+                  "none",
+                  "same_subject_newer",
+                  "event_specific"
+                ]
+              }
+            },
+            "required": [
+              "category",
+              "kind_from_event",
+              "dedupe_key_fields",
+              "supersession_mode"
+            ]
+          }
+        },
+        "required": [
+          "rule_id",
+          "priority",
+          "match",
+          "action",
+          "emit"
+        ]
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "policy_version",
+    "default_action",
+    "rules",
+    "created_at"
+  ]
+}

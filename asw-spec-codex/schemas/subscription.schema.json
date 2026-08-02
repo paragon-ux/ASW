@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:subscription:v1",
+  "title": "ASW signal subscription",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.subscription.v1"
+    },
+    "subscription_id": {
+      "type": "string",
+      "pattern": "^sub_[A-Za-z0-9._-]+$"
+    },
+    "subscriber_id": {
+      "type": "string",
+      "pattern": "^(user|agent):[A-Za-z0-9._-]+$"
+    },
+    "subscriber_kind": {
+      "enum": [
+        "user",
+        "agent"
+      ]
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "applications": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "files",
+          "artifacts",
+          "processes",
+          "jobs",
+          "windows_ui",
+          "application",
+          "diagnostics",
+          "shared_artifacts",
+          "source_health"
+        ]
+      }
+    },
+    "event_types": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "file.created",
+          "file.modified",
+          "file.deleted",
+          "file.saved",
+          "artifact.available",
+          "process.started",
+          "process.completed",
+          "process.failed",
+          "process.crashed",
+          "process.restarted",
+          "job.completed",
+          "job.failed",
+          "window.created",
+          "dialog.appeared",
+          "operation.available",
+          "operation.completed",
+          "diagnostic.changed",
+          "shared_artifact.updated",
+          "source.degraded",
+          "source.reconciled"
+        ]
+      }
+    },
+    "destinations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "activity_center",
+          "windows_app_sdk",
+          "agent_stream"
+        ]
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "subscription_id",
+    "subscriber_id",
+    "subscriber_kind",
+    "enabled",
+    "applications",
+    "categories",
+    "event_types",
+    "destinations",
+    "created_at",
+    "updated_at"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "subscriber_kind": {
+            "const": "user"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "subscriber_id": {
+            "pattern": "^user:[A-Za-z0-9._-]+$"
+          },
+          "destinations": {
+            "items": {
+              "enum": [
+                "activity_center",
+                "windows_app_sdk"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "subscriber_kind": {
+            "const": "agent"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "subscriber_id": {
+            "pattern": "^agent:[A-Za-z0-9._-]+$"
+          },
+          "destinations": {
+            "items": {
+              "const": "agent_stream"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

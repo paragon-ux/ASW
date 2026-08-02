@@ -1,0 +1,19 @@
+{
+  "schema_version": "asw.subscription.v1",
+  "subscription_id": "sub_bad",
+  "subscriber_id": "agent:codex-1",
+  "subscriber_kind": "agent",
+  "enabled": true,
+  "applications": [
+    "app.visual-studio"
+  ],
+  "categories": [
+    "jobs"
+  ],
+  "event_types": [],
+  "destinations": [
+    "windows_app_sdk"
+  ],
+  "created_at": "2026-08-01T12:00:00-04:00",
+  "updated_at": "2026-08-01T12:00:00-04:00"
+}

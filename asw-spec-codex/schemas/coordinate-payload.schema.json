@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:coordinate-payload:v1",
+  "title": "ASW Windows UI coordinate payload",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.coordinate_payload.v1"
+    },
+    "coordinate_frame": {
+      "const": "windows_virtual_screen_physical_px"
+    },
+    "monitor_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256
+    },
+    "dpi_scale": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "exclusiveMinimum": 0
+    },
+    "virtual_screen_rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "type": "integer"
+        },
+        "y": {
+          "type": "integer"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    },
+    "monitor_rect": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": {
+              "type": "integer"
+            },
+            "y": {
+              "type": "integer"
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "width",
+            "height"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "window_rect": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": {
+              "type": "integer"
+            },
+            "y": {
+              "type": "integer"
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "width",
+            "height"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "element_rect": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": {
+              "type": "integer"
+            },
+            "y": {
+              "type": "integer"
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "width",
+            "height"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "visibility": {
+      "enum": [
+        "visible",
+        "partially_obscured",
+        "offscreen",
+        "unknown"
+      ]
+    },
+    "enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "focusable": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "localization_confidence": {
+      "enum": [
+        "observed",
+        "partial",
+        "unknown"
+      ]
+    },
+    "observed_frontier": {
+      "$ref": "urn:asw:schema:frontier:v1"
+    },
+    "ephemeral_correlation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "uia_runtime_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "hwnd": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "uia_runtime_id",
+        "hwnd"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "coordinate_frame",
+    "monitor_id",
+    "dpi_scale",
+    "virtual_screen_rect",
+    "monitor_rect",
+    "window_rect",
+    "element_rect",
+    "visibility",
+    "enabled",
+    "focusable",
+    "localization_confidence",
+    "observed_frontier",
+    "ephemeral_correlation"
+  ]
+}

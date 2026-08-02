@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:subscriber:v1",
+  "title": "ASW subscriber",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.subscriber.v1"
+    },
+    "subscriber_id": {
+      "type": "string",
+      "pattern": "^(user|agent):[A-Za-z0-9._-]+$"
+    },
+    "kind": {
+      "enum": [
+        "user",
+        "agent"
+      ]
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "subscriber_id",
+    "kind",
+    "display_name",
+    "enabled",
+    "created_at"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "user"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "subscriber_id": {
+            "pattern": "^user:[A-Za-z0-9._-]+$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "agent"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "subscriber_id": {
+            "pattern": "^agent:[A-Za-z0-9._-]+$"
+          }
+        }
+      }
+    }
+  ]
+}

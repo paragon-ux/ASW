@@ -1,0 +1,28 @@
+{
+  "schema_version": "asw.subscription.v1",
+  "subscription_id": "sub_agent_vs",
+  "subscriber_id": "agent:codex-1",
+  "subscriber_kind": "agent",
+  "enabled": true,
+  "applications": [
+    "app.visual-studio"
+  ],
+  "categories": [
+    "files",
+    "jobs",
+    "diagnostics",
+    "artifacts"
+  ],
+  "event_types": [
+    "file.saved",
+    "job.completed",
+    "job.failed",
+    "diagnostic.changed",
+    "artifact.available"
+  ],
+  "destinations": [
+    "agent_stream"
+  ],
+  "created_at": "2026-08-01T12:08:00-04:00",
+  "updated_at": "2026-08-01T12:08:00-04:00"
+}

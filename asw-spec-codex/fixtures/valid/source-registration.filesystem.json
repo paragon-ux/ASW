@@ -1,0 +1,22 @@
+{
+  "schema_version": "asw.source_registration.v1",
+  "source_id": "fs:vs-workspace",
+  "adapter": "filesystem",
+  "application_id": "app.visual-studio",
+  "enabled": true,
+  "authorization_id": "auth_vs",
+  "configuration": {
+    "roots": [
+      "C:\\src\\project"
+    ],
+    "recursive": true
+  },
+  "settle_profile": {
+    "initial_delay_ms": 250,
+    "poll_interval_ms": 100,
+    "required_stable_observations": 2,
+    "maximum_settle_ms": 5000,
+    "stability_mode": "metadata"
+  },
+  "registered_at": "2026-08-01T12:10:00-04:00"
+}

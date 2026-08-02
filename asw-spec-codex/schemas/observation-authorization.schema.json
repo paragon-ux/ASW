@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:observation-authorization:v1",
+  "title": "ASW user observation authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.observation_authorization.v1"
+    },
+    "authorization_id": {
+      "type": "string",
+      "pattern": "^auth_[A-Za-z0-9._-]+$"
+    },
+    "authorized_by": {
+      "type": "string",
+      "pattern": "^user:[A-Za-z0-9._-]+$"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "scopes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "application_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "source_kind": {
+            "enum": [
+              "filesystem",
+              "process_job",
+              "uia",
+              "application",
+              "diagnostic"
+            ]
+          },
+          "filesystem_roots": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32767
+            }
+          },
+          "executable_names": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 260
+            }
+          },
+          "job_kinds": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "build",
+                "test",
+                "render",
+                "export",
+                "sync",
+                "background",
+                "download"
+              ]
+            }
+          },
+          "uia_process_names": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 260
+            }
+          },
+          "adapter_contract": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 512
+          }
+        },
+        "required": [
+          "application_id",
+          "source_id",
+          "source_kind"
+        ]
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "authorized_by",
+    "enabled",
+    "scopes",
+    "created_at",
+    "updated_at"
+  ]
+}

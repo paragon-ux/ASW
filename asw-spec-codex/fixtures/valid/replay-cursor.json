@@ -1,0 +1,21 @@
+{
+  "schema_version": "asw.replay_cursor.v1",
+  "cursor_id": "cursor_1",
+  "subscriber_id": "agent:codex-1",
+  "frontier": {
+    "schema_version": "asw.frontier.v1",
+    "journal_sequence": 9188,
+    "runtime_epoch": "uuid-runtime-1",
+    "source_frontiers": {
+      "fs:workspace": {
+        "source_epoch": "uuid-fs-3",
+        "source_sequence": 42,
+        "source_cursor": null,
+        "snapshot_digest": "sha256:abc123",
+        "reconciliation_id": "recon-3"
+      }
+    },
+    "reducer_policy_version": "asw.reducer.v1"
+  },
+  "issued_at": "2026-08-01T12:11:02-04:00"
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "asw.event.v1",
+  "event_id": "evt_dialog_1",
+  "type": "dialog.appeared",
+  "application_id": "app.visual-studio",
+  "observed_at": "2026-08-01T12:11:00-04:00",
+  "source": {
+    "adapter": "uia",
+    "source_id": "uia:vs",
+    "source_epoch": "uia-1",
+    "source_sequence": 4,
+    "reliability": "observed"
+  },
+  "subject": {
+    "kind": "window",
+    "value": {
+      "title": "Permission required"
+    }
+  },
+  "operation": {
+    "operation_id": null,
+    "kind": "dialog",
+    "status": "appeared"
+  },
+  "payload": {},
+  "frontier": {
+    "schema_version": "asw.frontier.v1",
+    "journal_sequence": 9188,
+    "runtime_epoch": "uuid-runtime-1",
+    "source_frontiers": {
+      "fs:workspace": {
+        "source_epoch": "uuid-fs-3",
+        "source_sequence": 42,
+        "source_cursor": null,
+        "snapshot_digest": "sha256:abc123",
+        "reconciliation_id": "recon-3"
+      }
+    },
+    "reducer_policy_version": "asw.reducer.v1"
+  }
+}

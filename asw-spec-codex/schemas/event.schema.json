@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:asw:schema:event:v1",
+  "title": "ASW source event",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "asw.event.v1"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt_[A-Za-z0-9._-]+$"
+    },
+    "type": {
+      "enum": [
+        "file.created",
+        "file.modified",
+        "file.deleted",
+        "file.saved",
+        "artifact.available",
+        "process.started",
+        "process.completed",
+        "process.failed",
+        "process.crashed",
+        "process.restarted",
+        "job.completed",
+        "job.failed",
+        "window.created",
+        "dialog.appeared",
+        "operation.available",
+        "operation.completed",
+        "diagnostic.changed",
+        "shared_artifact.updated",
+        "source.degraded",
+        "source.reconciled"
+      ]
+    },
+    "application_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "adapter": {
+          "enum": [
+            "filesystem",
+            "process",
+            "job",
+            "uia",
+            "application",
+            "diagnostic"
+          ]
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "source_epoch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "source_sequence": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "reliability": {
+          "enum": [
+            "authoritative",
+            "observed",
+            "hint",
+            "degraded"
+          ]
+        }
+      },
+      "required": [
+        "adapter",
+        "source_id",
+        "source_epoch",
+        "source_sequence",
+        "reliability"
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "path",
+            "artifact",
+            "process",
+            "job",
+            "window",
+            "ui_element",
+            "diagnostic_set",
+            "operation",
+            "source",
+            "unknown"
+          ]
+        },
+        "value": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ]
+    },
+    "operation": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "kind": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 128
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "operation_id",
+        "kind",
+        "status"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "frontier": {
+      "$ref": "urn:asw:schema:frontier:v1"
+    }
+  },
+  "required": [
+    "schema_version",
+    "event_id",
+    "type",
+    "application_id",
+    "observed_at",
+    "source",
+    "subject",
+    "operation",
+    "payload",
+    "frontier"
+  ]
+}
